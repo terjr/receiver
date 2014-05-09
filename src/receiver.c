@@ -1,0 +1,5 @@
+#include "receiver.h"
+
+int main() {
+    return 0;
+}
