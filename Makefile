@@ -1,5 +1,5 @@
 CC=avr-gcc
-CFLAGS=-g -Os -Wall -mmcu=atmega164a
+CFLAGS=-g -Os -Wall -mmcu=atmega164a -DF_CPU=1000000UL
 OBJ2HEX=avr-objcopy
 ADFLAGS=-c jtag2 -p m164a
 
