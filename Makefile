@@ -24,7 +24,7 @@ $(HEX): $(TARGET)
 	$(OBJ2HEX) -O ihex $< $@
 
 upload: $(HEX)
-	avrdude $(ADFLAGS)
+	avrdude $(ADFLAGS) -e -U flash:w:$(HEX)
 
 obj:
 	mkdir obj
