@@ -2,20 +2,15 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include "muxctrl.h"
 #include "led.h"
 
 int main() {
 
     init_leds();
+    init_muxes();
 
-    DDRB |= (1 << DDB0);
-    PORTB |= _BV(PB0);
-
-
-    DDRB |= (1 << DDB2);
-    DDRB |= (1 << DDB1);
-    PORTB &= ~(_BV(PB2));
-    PORTB &= ~(_BV(PB1));
+    mux_set_analog_channel(A_CH_1);
 
     led_toggle(LED1);
     _delay_ms(500);
