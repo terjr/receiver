@@ -1,6 +1,7 @@
 #include "attenuator.h"
 
 #include <avr/io.h>
+#include <util/delay.h>
 
 #define CLOCK PA1
 #define LOAD_SHIFT PA2
@@ -12,7 +13,7 @@
 
 
 void init_attenuator() {
-    PORTA |= (1 << PA1) | (1 << PA2) | (1 << PA3);
+    DDRA  |= (1 << PA1) | (1 << PA2) | (1 << PA3);
     PORTA |= (1 << LOAD_SHIFT);
     PORTA &= ~(1 << CLOCK);
 }
@@ -27,6 +28,12 @@ void att_mute() {
     att_data = (ATT_CH2 << 8) | 0xff;
     att_tx(att_data);
 }
+
+void att_set_volume(uint8_t channel, uint8_t attenuate_value)
+{
+    att_tx( (channel << 8) | attenuate_value);
+}
+
 
 void att_tx(uint16_t data) {
     // Set Load/Shift low to start data transfer
@@ -49,6 +56,7 @@ void att_tx(uint16_t data) {
 void att_pulse_clock() {
     PORTA |= (1 << CLOCK);
     // TODO: Delay here?
+    _delay_ms(1);
     PORTA &= ~(1 << CLOCK);
 }
 
