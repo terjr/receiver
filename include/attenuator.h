@@ -3,9 +3,9 @@
 #include <stdint.h>
 
 
-#define ATT_CH1 0x00    
-#define ATT_CH2 0x01    
-#define ATT_CH3 0x02  
+#define ATT_CH1 0x00
+#define ATT_CH2 0x01
+#define ATT_CH3 0x02
 
 
 void att_tx(uint16_t data);
