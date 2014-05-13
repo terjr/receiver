@@ -28,32 +28,32 @@ int main() {
     _delay_ms(500);
     */
     while (1) {
-        set_leds_bin(0);
+        led_set_number(0);
         for (uint8_t value = 0; value < 127; ++value) {
             att_set_volume(ATT_CH1, value);
             _delay_ms(10);
         }
-        set_leds_bin(1);
+        led_set_number(1);
         for (uint8_t value = 127; value > 0; --value) {
             att_set_volume(ATT_CH1, value);
             _delay_ms(10);
         }
-        set_leds_bin(2);
+        led_set_number(2);
         for (uint8_t value = 0; value < 127; ++value) {
             att_set_volume(ATT_CH2, value);
             _delay_ms(10);
         }
-        set_leds_bin(3);
+        led_set_number(3);
         for (uint8_t value = 127; value > 0; --value) {
             att_set_volume(ATT_CH2, value);
             _delay_ms(10);
         }
-        set_leds_bin(4);
+        led_set_number(4);
         for (uint8_t value = 0; value < 127; ++value) {
             att_set_volume(ATT_CH3, value);
             _delay_ms(10);
         }
-        set_leds_bin(5);
+        led_set_number(5);
         for (uint8_t value = 127; value > 0; --value) {
             att_set_volume(ATT_CH3, value);
             _delay_ms(10);
