@@ -4,7 +4,7 @@
 
 void init_leds() {
     // Set as outputs.
-    DDRD |= (1 << DDD3) | (1 << DDD4) | (1 << DDD5) | (1 << DDD6);
+    DDRD |= (1 << DDD3) | (1 << DDD4) | (1 << DDD5);
 }
 
 void led_set(const uint8_t n, const uint8_t value) {

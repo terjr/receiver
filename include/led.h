@@ -3,7 +3,6 @@
 #define LED1 PD3
 #define LED2 PD4
 #define LED3 PD5
-#define LED4 PD6
 
 #include <stdint.h>
 
