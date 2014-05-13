@@ -13,7 +13,7 @@
 
 
 void init_attenuator() {
-    DDRA  |= (1 << PA1) | (1 << PA2) | (1 << PA3);
+    DDRA  |= (1 << DDA1) | (1 << DDA2) | (1 << DDA3);
     PORTA |= (1 << LOAD_SHIFT);
     PORTA &= ~(1 << CLOCK);
 }
@@ -29,9 +29,8 @@ void att_mute() {
     att_tx(att_data);
 }
 
-void att_set_volume(uint8_t channel, uint8_t attenuate_value)
-{
-    att_tx( (channel << 8) | attenuate_value);
+void att_set_volume(uint8_t channel, uint8_t attenuate_value) {
+    att_tx((channel << 8) | attenuate_value);
 }
 
 
