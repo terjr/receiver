@@ -1,0 +1,3 @@
+# AVR JTAGICEmkII / USB.
+
+SUBSYSTEM=="usb", ATTR{idVendor}=="03eb", ATTR{idProduct}=="2103", MODE="660", GROUP="sudo"
