@@ -2,40 +2,46 @@
 
 #include <avr/io.h>
 
-#define ADG2_A0 _BV(PB2)
-#define ADG2_A1 _BV(PB1)
-#define ADG2_EN _BV(PB0)
+#define MUX_A0 _BV(PB2)
+#define MUX_A1 _BV(PB1)
+#define ANALOG_EN _BV(PB0)
 
 
 void init_muxes() {
-    // ADG2 address pins
+    // ADG1/ADG2 address pins
     DDRB |= (1 << DDB2);
     DDRB |= (1 << DDB1);
     // ADG2 enable pin AND ADG3 control pin
     DDRB |= (1 << DDB0);
 }
 
-void mux_set_analog_channel(const uint8_t channel) {
+void mux_set_channel(const uint8_t mode, const uint8_t channel) {
     // Enable ADG2 (this in turn configures ADG3 correctly, see schematics)
-    PORTB |= ADG2_EN;
+    if (ANALOG == mode) {
+        PORTB |= ANALOG_EN;
+    } else if (DIGITAL == mode) {
+        PORTB &= ~ANALOG_EN;
+    } else {
+        return;
+    }
 
-    // Set appropriate address pins on ADG2
+    // Set appropriate address pins on ADG1/ADG2
     switch (channel) {
-        case A_CH_1:
-            PORTB &= ~(ADG2_A0);
-            PORTB &= ~(ADG2_A1);
+        case CH_1:
+            PORTB &= ~(MUX_A0);
+            PORTB &= ~(MUX_A1);
             break;
-        case A_CH_2:
-            PORTB |= ADG2_A0;
-            PORTB &= ~(ADG2_A1);
+        case CH_2:
+            PORTB |= MUX_A0;
+            PORTB &= ~(MUX_A1);
             break;
-        case A_CH_3:
-            PORTB &= ~(ADG2_A0);
-            PORTB |= ADG2_A1;
+        case CH_3:
+            PORTB &= ~(MUX_A0);
+            PORTB |= MUX_A1;
             break;
-        case A_CH_4:
-            PORTB |= ADG2_A0;
-            PORTB |= ADG2_A1;
+        case CH_4:
+            PORTB |= MUX_A0;
+            PORTB |= MUX_A1;
             break;
     }
 }

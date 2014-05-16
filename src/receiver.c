@@ -12,7 +12,7 @@ int main() {
     init_muxes();
     init_attenuator();
 
-    mux_set_analog_channel(A_CH_1);
+    mux_set_channel(ANALOG, CH_1);
 
     while (1);
     return 0;
