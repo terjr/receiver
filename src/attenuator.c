@@ -7,29 +7,27 @@
 #define LOAD_SHIFT PA2
 #define DATA_IN PA3
 
-#define ATT_CH1 0x00
-#define ATT_CH2 0x01
-#define ATT_CH3 0x02
-
-
 void init_attenuator() {
     DDRA  |= (1 << DDA1) | (1 << DDA2) | (1 << DDA3);
     PORTA |= (1 << LOAD_SHIFT);
     PORTA &= ~(1 << CLOCK);
+
+    // TODO: For now, start unmuted
+    att_set_mute(ATT_LEFT, 0);
+    att_set_mute(ATT_RIGHT, 0);
 }
 
-// Mute channel 1 and 2
 void att_mute() {
     uint16_t att_data;
 
-    att_data = (ATT_CH1 << 8) | 0xff;
+    att_data = (ATT_LEFT << 8) | 0xff;
     att_tx(att_data);
 
-    att_data = (ATT_CH2 << 8) | 0xff;
+    att_data = (ATT_RIGHT << 8) | 0xff;
     att_tx(att_data);
 }
 
-void att_set_volume(uint8_t channel, uint8_t attenuate_value) {
+void att_set_mute(uint8_t channel, uint8_t attenuate_value) {
     att_tx((channel << 8) | attenuate_value);
 }
 
@@ -54,7 +52,6 @@ void att_tx(uint16_t data) {
 
 void att_pulse_clock() {
     PORTA |= (1 << CLOCK);
-    // TODO: Delay here?
     _delay_ms(1);
     PORTA &= ~(1 << CLOCK);
 }
