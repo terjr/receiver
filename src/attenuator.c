@@ -32,6 +32,10 @@ void att_set_volume(uint8_t volume) {
     att_set_value(ATT_RIGHT, output_volume);
 }
 
+void att_mute() {
+    att_set_volume(0);
+}
+
 
 void att_tx(uint16_t data) {
     // Set Load/Shift low to start data transfer
