@@ -12,8 +12,8 @@
 
 
 void init_attenuator();
-void att_tx(uint16_t data);
-void att_set_value(uint8_t channel, uint8_t attenuate_value);
+void att_set_value(const uint8_t channel, const uint8_t attenuate_value);
 void att_set_volume(uint8_t volume);
+void att_tx(uint16_t data);
 void att_pulse_clock();
 

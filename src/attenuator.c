@@ -7,22 +7,29 @@
 #define LOAD_SHIFT PA2
 #define DATA_IN PA3
 
+#define MAX_VOLUME 79
+#define LM1972_STEP_CHANGE 48
+
 void init_attenuator() {
     DDRA  |= (1 << DDA1) | (1 << DDA2) | (1 << DDA3);
     PORTA |= (1 << LOAD_SHIFT);
     PORTA &= ~(1 << CLOCK);
 
-    // TODO: For now, start unmuted
-    att_set_value(ATT_LEFT, 0);
-    att_set_value(ATT_RIGHT, 0);
+    att_set_volume(MAX_VOLUME);
 }
 
-void att_set_value(uint8_t channel, uint8_t attenuate_value) {
+void att_set_value(const uint8_t channel, const uint8_t attenuate_value) {
     att_tx((channel << 8) | attenuate_value);
 }
 
+// 0 = mute, 79 = full volume
 void att_set_volume(uint8_t volume) {
-    // TODO: Implement volume -> att_value mapping
+    if (volume > MAX_VOLUME) volume = MAX_VOLUME;
+    uint8_t db = MAX_VOLUME - (0x7f & volume);
+    uint8_t output_volume = (db <= LM1972_STEP_CHANGE) ? 2 * db : LM1972_STEP_CHANGE + db;
+
+    att_set_value(ATT_LEFT, output_volume);
+    att_set_value(ATT_RIGHT, output_volume);
 }
 
 
