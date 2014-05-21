@@ -13,22 +13,16 @@ void init_attenuator() {
     PORTA &= ~(1 << CLOCK);
 
     // TODO: For now, start unmuted
-    att_set_mute(ATT_LEFT, 0);
-    att_set_mute(ATT_RIGHT, 0);
+    att_set_value(ATT_LEFT, 0);
+    att_set_value(ATT_RIGHT, 0);
 }
 
-void att_mute() {
-    uint16_t att_data;
-
-    att_data = (ATT_LEFT << 8) | 0xff;
-    att_tx(att_data);
-
-    att_data = (ATT_RIGHT << 8) | 0xff;
-    att_tx(att_data);
-}
-
-void att_set_mute(uint8_t channel, uint8_t attenuate_value) {
+void att_set_value(uint8_t channel, uint8_t attenuate_value) {
     att_tx((channel << 8) | attenuate_value);
+}
+
+void att_set_volume(uint8_t volume) {
+    // TODO: Implement volume -> att_value mapping
 }
 
 
